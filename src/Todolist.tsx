@@ -15,17 +15,24 @@ export const Todolist = ({ tasks, title }: TodolistPropstype) => {
 	// * современный способ, более современный
 	// const { tasks, title } = props
 
-	const tasksList: Array<JSX.Element> = tasks.map(task => {
-		return (
-			<li>
-				<input
-					type='checkbox'
-					checked={task.isDone}
-				/>{' '}
-				<span>{task.title}</span>
-			</li>
+	const tasksList: JSX.Element =
+		tasks.length === 0 ? (
+			<span>Your tasklist is emty</span>
+		) : (
+			<ul>
+				{tasks.map(task => {
+					return (
+						<li key={task.id}>
+							<input
+								type='checkbox'
+								checked={task.isDone}
+							/>{' '}
+							<span>{task.title}</span>
+						</li>
+					)
+				})}
+			</ul>
 		)
-	})
 
 	return (
 		<div className='todoList'>
@@ -34,7 +41,7 @@ export const Todolist = ({ tasks, title }: TodolistPropstype) => {
 				<input />
 				<Button title='+' />
 			</div>
-			<ul>{tasksList}</ul>
+			{tasksList}
 			<div>
 				<Button title='All' />
 				<Button title='Active' />
